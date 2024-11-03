@@ -2,6 +2,7 @@ import * as path from 'path'
 import * as fs from 'fs'
 import * as os from 'os'
 import { exec } from 'child_process'
+import * as uuid from 'uuid'
 
 type JSONArray = JSONLike[]
 interface JSONObject {
@@ -145,7 +146,7 @@ export class WallpaperEngineApi {
     }
 
     // ####################################################### Background management #######################################################
-    listWallpapers(): Wallpaper[] {
+    async listWallpapers(): Promise<Wallpaper[]> {
         const wallpapers: Wallpaper[] = []
 
         const wallpaperDirs = fs.readdirSync(this.#wpFolder)
@@ -175,8 +176,60 @@ export class WallpaperEngineApi {
         return wallpapers
     }
 
-    listProfiles() {
+    async listProfiles() {
 
+    }
+
+    wallpaper() {
+        const p = this
+        return {
+            /**
+             * Loads a wallpaper and sets it
+             * @param idOrPath Id of the wallpaper or path to project.json
+             * @param monitorIndex Monitor Index for the wallpaper to set, beginning at 0. If not provided, sets for all monitors
+             */
+            async load(idOrPath: string, monitorIndex?: number) {
+                const pjPath = getPjPathFromId(idOrPath, p.#wpFolder)
+
+                let order = `openWallpaper -file "${pjPath}"`
+                if (typeof monitorIndex === 'number') order += ` -monitor ${monitorIndex}`
+
+                const { success, stdout, stderr } = await p.#sendOrder(order)
+                if (!success) throw `Error: couldn't execute order "${order}":\n${stderr}`
+                p.#log(`Executed order "${order}"`)
+            },
+            /**
+             * Retrieves the current wallpaper and returns and object containing info about it.
+             * @param monitorIndex Monitor Index for the wallpaper to get, beginning at 0. If not provided, retrieves wallpaper of the main monitor
+             */
+            async current(monitorIndex?: number) {
+                let order = 'getWallpaper'
+                if (typeof monitorIndex === 'number') order += ` -monitor ${monitorIndex}`
+                const outFile = `${path.join(os.homedir(), 'x-wpe-' + uuid.v4())}.txt`
+                order += ` > ${outFile}`
+                p.#log('Will log output of getWallpaper to', outFile)
+
+                const { success, stdout, stderr } = await p.#sendOrder(order)
+                if (!success) throw `Error: couldn't execute order "${order}":\n${stderr}`
+                p.#log(`Executed order "${order}"`)
+                
+                const ofContent = fs.readFileSync(outFile, 'utf-8').trim()
+                fs.unlinkSync(outFile)
+                const pjPath = path.join(path.dirname(ofContent), 'project.json')
+                const projectJson = JSON.parse(fs.readFileSync(pjPath, 'utf8')) as JSONLike
+                if (!(projectJson !== null && typeof projectJson === 'object' && !Array.isArray(projectJson))) throw 'Error: project.json is invalid'
+
+                return {
+                    title: (typeof projectJson.title === 'string') ? projectJson.title : 'No title',
+                    description: (typeof projectJson.description === 'string') ? projectJson.description : 'No description',
+                    preview: (typeof projectJson.preview === 'string' && projectJson.preview.length > 0) ? path.join(path.dirname(ofContent), projectJson.preview) : null,
+                    tags: Array.isArray(projectJson.tags) ? projectJson.tags.map(e => (e || '').toString()) : [],
+                    properties: createWallpaperPropertyObject(projectJson),
+                    path: pjPath,
+                    id: path.basename(path.dirname(ofContent))
+                }
+            },
+        }
     }
 }
 
@@ -192,6 +245,23 @@ function createWallpaperPropertyObject(pj: JSONObject): JSONObject {
     }
 
     return propObj
+}
+
+function getPjPathFromId(idOrPath: string, wpf: string) {
+    if (idOrPath.endsWith('project.json')) {
+        if (fs.existsSync(idOrPath)) {
+            return idOrPath
+        } else {
+            throw `Error: Implied that ${idOrPath} would be a path to a project.json, but wasn't able to find it there!`
+        }
+    } else {
+        idOrPath = path.join(wpf, idOrPath, 'project.json')
+        if (fs.existsSync(idOrPath)) {
+            return idOrPath
+        } else {
+            throw `Error: Implied that ${idOrPath} would exist, but wasn't able to find it!`
+        }
+    }
 }
 
 interface Wallpaper {

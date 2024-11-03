@@ -45,4 +45,16 @@ Now you can control your desktop like this:
     await sleep(2000)
 
     WE.controls().play()
+
+    await sleep(1000)
+
+    const wallpapers = await WE.listWallpapers()
+    const profiles = await WE.listProfiles()
+
+    // console.log(wallpapers)
+    console.log(profiles)
+
+    const currentWallpaper = await WE.wallpaper().current()
+    console.log(currentWallpaper)
+    await WE.wallpaper().load(currentWallpaper.id)
 ```

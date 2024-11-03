@@ -31,10 +31,13 @@ const sleep = (/** @type {number} */ ms) => new Promise((r) => setTimeout(r, ms)
 
     await sleep(1000)
 
-    const wallpapers = WE.listWallpapers()
-    const profiles = WE.listProfiles()
+    const wallpapers = await WE.listWallpapers()
+    const profiles = await WE.listProfiles()
 
     // console.log(wallpapers)
     console.log(profiles)
 
+    const currentWallpaper = await WE.wallpaper().current()
+    console.log(currentWallpaper)
+    await WE.wallpaper().load(currentWallpaper.id)
 })();
