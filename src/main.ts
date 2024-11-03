@@ -76,14 +76,62 @@ export class WallpaperEngineApi {
         const p = this
         return {
             async showIcons() {
-                const { success, stdout, stderr } = await p.#sendOrder('showIcons')
-                if (!success) throw `Error: couldn't execute order "showIcons":\n${stderr}`
-                p.#log(`Executed order "showIcons"`)
+                const order = 'showIcons'
+
+                const { success, stdout, stderr } = await p.#sendOrder(order)
+                if (!success) throw `Error: couldn't execute order "${order}":\n${stderr}`
+                p.#log(`Executed order "${order}"`)
             },
             async hideIcons() {
-                const { success, stdout, stderr } = await p.#sendOrder('hideIcons')
-                if (!success) throw `Error: couldn't execute order "hideIcons":\n${stderr}`
-                p.#log(`Executed order "hideIcons"`)
+                const order = 'hideIcons'
+
+                const { success, stdout, stderr } = await p.#sendOrder(order)
+                if (!success) throw `Error: couldn't execute order "${order}":\n${stderr}`
+                p.#log(`Executed order "${order}"`)
+            }
+        }
+    }
+
+    controls() {
+        const p = this
+        return {
+            async play() {
+                const order = 'play'
+
+                const { success, stdout, stderr } = await p.#sendOrder(order)
+                if (!success) throw `Error: couldn't execute order "${order}":\n${stderr}`
+                p.#log(`Executed order "${order}"`)
+            },
+            async pause() {
+                const order = 'pause'
+
+                const { success, stdout, stderr } = await p.#sendOrder(order)
+                if (!success) throw `Error: couldn't execute order "${order}":\n${stderr}`
+                p.#log(`Executed order "${order}"`)
+            },
+            /**
+             * Completely stops all running backgrounds and switches to windows default background. You can still use play(), or reload the wallpaper to resume.
+             */
+            async stop() {
+                const order = 'stop'
+
+                const { success, stdout, stderr } = await p.#sendOrder(order)
+                if (!success) throw `Error: couldn't execute order "${order}":\n${stderr}`
+                p.#log(`Executed order "${order}"`)
+            },
+            async mute() {
+                const order = 'mute'
+
+                const { success, stdout, stderr } = await p.#sendOrder(order)
+                if (!success) throw `Error: couldn't execute order "${order}":\n${stderr}`
+                p.#log(`Executed order "${order}"`)
+            },
+            async unmute() {
+                const order = 'unmute'
+
+                const { success, stdout, stderr } = await p.#sendOrder(order)
+                if (!success) throw `Error: couldn't execute order "${order}":\n${stderr}`
+                p.#log(`Executed order "${order}"`)
             }
         }
     }

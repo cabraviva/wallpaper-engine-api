@@ -12,4 +12,21 @@ const sleep = (/** @type {number} */ ms) => new Promise((r) => setTimeout(r, ms)
 
     WE.desktop().showIcons()
 
+    WE.controls().mute()
+    WE.controls().unmute()
+
+    WE.controls().pause()
+
+    await sleep(3000)
+    
+    WE.controls().play()
+
+    await sleep(2000)
+
+    WE.controls().stop()
+
+    await sleep(2000)
+
+    WE.controls().play()
+
 })();
