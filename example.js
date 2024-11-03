@@ -1,7 +1,7 @@
 // @ts-check
 const { WallpaperEngineApi } = require('./dist/main.js')
 
-const WE = new WallpaperEngineApi(undefined, true)
+const WE = new WallpaperEngineApi(undefined, undefined, true)
 const sleep = (/** @type {number} */ ms) => new Promise((r) => setTimeout(r, ms))
 
 ;(async () => {
@@ -28,5 +28,13 @@ const sleep = (/** @type {number} */ ms) => new Promise((r) => setTimeout(r, ms)
     await sleep(2000)
 
     WE.controls().play()
+
+    await sleep(1000)
+
+    const wallpapers = WE.listWallpapers()
+    const profiles = WE.listProfiles()
+
+    // console.log(wallpapers)
+    console.log(profiles)
 
 })();

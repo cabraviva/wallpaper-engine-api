@@ -15,9 +15,10 @@ const { WallpaperEngineApi } = require('wallpaper-engine-api')
 Initialize the Api like this:
 ```js
 // First argument is path to the wallpaper engine install directory, defaults to: "C:\Program Files (x86)\Steam\steamapps\common\wallpaper_engine"
-// Second argument enables debug logging, defaults to false
+// Second argument is path to wallpaper folder, defaults to: "C:\Program Files (x86)\Steam\steamapps\workshop\content\431960"
+// Third argument enables debug logging, defaults to false
 // All arguments are optional!
-const WE = new WallpaperEngineApi(undefined, true)
+const WE = new WallpaperEngineApi(undefined, undefined, true)
 ```
 
 Now you can control your desktop like this:
