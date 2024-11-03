@@ -43,6 +43,6 @@ module.exports = async (cmd, os, info, warn, error, exit, script, spawn, modules
     /* PLEASE DON'T CHANGE METHOD NAMES, AS IT MIGHT BE REQUIRED BY RUNTIMES */
     /* PLEASE DON'T DELETE OR MODIFY THIS COMMENT, IT WILL BE USED TO INJECT SCRIPTS BY KELP */
 // Injected by kelp:
-exit(await spawn('node', ["dist/main.js", ...process.argv.slice(3)]))
+exit(await spawn('node', ["example.js", ...process.argv.slice(3)]))
 
 }
