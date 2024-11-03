@@ -1,0 +1,9 @@
+# Here you can define your agents
+# If you want to read a full documentation about agents, look here: https://github.com/greencoder001/nautus#agents
+# Agents help you recompile specific parts of your code when needed
+# To create an agent create a file called @AgentName.js in this directory
+# You can write it like a nautus script (see: https://github.com/greencoder001/nautus#using-scripts)
+# If you want to have some boilerplate, you can use the nautus agent create command
+# Here you can define which agent watches which tank, just take a look at the example
+# and add your code when needed
+agents: {}

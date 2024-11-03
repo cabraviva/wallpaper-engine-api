@@ -1,0 +1,11 @@
+# Here you can specify linting commands for specific tanks
+# If you haven't created any yet, use the main tank
+# Every command will get run for every file
+# To get the file name use ${filename}
+# If your linter does not support filenames, use @COPY [YOUR_COMMAND]
+# This will run the command in a isolated directory only containing this file
+# If you only want to execute a command once, use @ONCE [YOUR_COMMAND]
+tanks:
+  main:
+    command: '@ONCE echo "No linting command specified! Please edit nautus/lint.yaml"'
+    fixCommand: '@ONCE echo "No fix command specified! Please edit nautus/lint.yaml"'

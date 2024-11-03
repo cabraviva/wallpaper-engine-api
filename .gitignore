@@ -128,3 +128,10 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+
+# Injected by nautus from kelp generator node-ts
+# If you want to merge something into the .gitignore, add it here
+
+# Injected by nautus from kelp generator pnpm
+# If you want to merge something into the .gitignore, add it here
