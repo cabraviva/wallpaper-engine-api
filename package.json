@@ -1,0 +1,25 @@
+{
+    "name": "wallpaper-engine-api",
+    "version": "0.0.0",
+    "description": "A nodejs wrapper to control your wallpaper engine backgrounds",
+    "main": "dist/main.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "Cabra (https://github.com/cabraviva)",
+    "license": "MIT",
+    "types": "dist/index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cabraviva/wallpaper-engine-api.git"
+    },
+    "bugs": {
+        "url": "https://github.com/cabraviva/wallpaper-engine-api/issues"
+    },
+    "homepage": "https://github.com/cabraviva/wallpaper-engine-api#readme",
+    "devDependencies": {
+        "@types/node": "^22.8.7",
+        "typescript": "^5.6.3"
+    }
+}
