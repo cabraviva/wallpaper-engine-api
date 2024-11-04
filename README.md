@@ -23,6 +23,7 @@ const WE = new WallpaperEngineApi(undefined, undefined, true)
 
 Now you can control your desktop like this:
 ```js
+
     WE.desktop().hideIcons()
 
     await sleep(2000)
@@ -52,9 +53,21 @@ Now you can control your desktop like this:
     const profiles = await WE.listProfiles()
 
     // console.log(wallpapers)
-    console.log(profiles)
+    // console.log(profiles)
+    // console.log(await WE.getConfig())
 
     const currentWallpaper = await WE.wallpaper().current()
-    console.log(currentWallpaper)
+    // console.log(currentWallpaper)
+
+    for (const profile of profiles) {
+        await WE.profile().load(profile)
+        await sleep(2000)
+    }
+
     await WE.wallpaper().load(currentWallpaper.id)
+
+    await sleep(1000)
+    
 ```
+
+Note: For compatibility with the api of the wallpaper-engine-api-remote package all methods are asynchronous even if they wouldn't require it.

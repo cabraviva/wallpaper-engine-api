@@ -1,7 +1,7 @@
 // @ts-check
 const { WallpaperEngineApi } = require('./dist/main.js')
 
-const WE = new WallpaperEngineApi(undefined, undefined, true)
+const WE = new WallpaperEngineApi(undefined, undefined, false)
 const sleep = (/** @type {number} */ ms) => new Promise((r) => setTimeout(r, ms))
 
 ;(async () => {
@@ -35,9 +35,19 @@ const sleep = (/** @type {number} */ ms) => new Promise((r) => setTimeout(r, ms)
     const profiles = await WE.listProfiles()
 
     // console.log(wallpapers)
-    console.log(profiles)
+    // console.log(profiles)
+    // console.log(await WE.getConfig())
 
     const currentWallpaper = await WE.wallpaper().current()
-    console.log(currentWallpaper)
+    // console.log(currentWallpaper)
+
+    for (const profile of profiles) {
+        await WE.profile().load(profile)
+        await sleep(2000)
+    }
+
     await WE.wallpaper().load(currentWallpaper.id)
+
+    await sleep(1000)
+    
 })();
