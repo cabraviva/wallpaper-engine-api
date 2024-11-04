@@ -3,6 +3,7 @@ import * as fs from 'fs'
 import * as os from 'os'
 import { exec } from 'child_process'
 import * as uuid from 'uuid'
+import { ConfigJsonRough } from './configJsonRoughType'
 
 type JSONArray = JSONLike[]
 interface JSONObject {
@@ -176,8 +177,41 @@ export class WallpaperEngineApi {
         return wallpapers
     }
 
-    async listProfiles() {
+    /**
+     * Returns the config.json file of wallpaper engine.
+     */
+    async getConfig(): Promise<ConfigJsonRough> {
+        const configJsonPath = path.join(this.#weInstallPath, 'config.json')
+        const configJson = JSON.parse(fs.readFileSync(configJsonPath, 'utf8')) as ConfigJsonRough
+        return configJson
+    }
 
+    /**
+     * Returns an array of names for all created profiles. These can be passed into profile().load()
+     */
+    async listProfiles(): Promise<string[]> {
+        const configJson = await this.getConfig()
+        const profiles = configJson[os.userInfo().username].general.profiles
+        return profiles.map(profile => {
+            return profile.name
+        })
+    }
+
+    profile () {
+        const p = this
+        return {
+            /**
+             * Loads a wallpaper and sets it
+             * @param profileName Name of the profile. Can be retrieved using listProfiles()
+             */
+            async load(profileName: string) {
+                let order = `openProfile -profile "${profileName}"`
+
+                const { success, stdout, stderr } = await p.#sendOrder(order)
+                if (!success) throw `Error: couldn't execute order "${order}":\n${stderr}`
+                p.#log(`Executed order "${order}"`)
+            }
+        }
     }
 
     wallpaper() {
