@@ -1,6 +1,6 @@
 {
     "name": "wallpaper-engine-api",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "description": "A nodejs wrapper to control your wallpaper engine backgrounds",
     "main": "dist/main.js",
     "scripts": {
