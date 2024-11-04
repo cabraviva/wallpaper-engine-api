@@ -67,6 +67,9 @@ Now you can control your desktop like this:
     await WE.wallpaper().load(currentWallpaper.id)
 
     await sleep(1000)
+
+    // Properties
+    await WE.wallpaper().applyProperties(currentWallpaper.properties)
     
 ```
 
