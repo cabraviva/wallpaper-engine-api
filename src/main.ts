@@ -263,6 +263,13 @@ export class WallpaperEngineApi {
                     id: path.basename(path.dirname(ofContent))
                 }
             },
+            async applyProperties(properties: JSONObject) {
+                let order = `applyProperties -properties RAW~(${JSON.stringify(properties)})~END`
+                
+                const { success, stdout, stderr } = await p.#sendOrder(order)
+                if (!success) throw `Error: couldn't execute order "${order}":\n${stderr}`
+                p.#log(`Executed order "${order}"`)
+            },
         }
     }
 }
@@ -316,7 +323,7 @@ interface Wallpaper {
      */
     tags: string[]
     /**
-     * Property object with the current values. Can be passed into wallpaper.applyProperties
+     * Property object with the current values. Can be passed into wallpaper().applyProperties()
      */
     properties: JSONObject,
     /**

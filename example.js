@@ -49,5 +49,8 @@ const sleep = (/** @type {number} */ ms) => new Promise((r) => setTimeout(r, ms)
     await WE.wallpaper().load(currentWallpaper.id)
 
     await sleep(1000)
-    
+
+    // Properties
+    await WE.wallpaper().applyProperties(currentWallpaper.properties)
+
 })();
