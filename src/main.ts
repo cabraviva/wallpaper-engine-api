@@ -191,7 +191,7 @@ export class WallpaperEngineApi {
      */
     async listProfiles(): Promise<string[]> {
         const configJson = await this.getConfig()
-        const profiles = configJson[os.userInfo().username].general.profiles
+        const profiles = configJson[os.userInfo().username].general.profiles ?? []
         return profiles.map(profile => {
             return profile.name
         })
