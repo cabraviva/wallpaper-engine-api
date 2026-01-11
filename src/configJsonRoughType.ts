@@ -10,7 +10,7 @@ export interface KeyString {
 export interface General {
     browser: Browser
     editor: Editor
-    profiles: Profile[]
+    profiles?: Profile[]
     user: User
     wallpaperconfig: Wallpaperconfig
     wallpaperconfigrecent: Wallpaperconfigrecent[]
