@@ -1,6 +1,10 @@
 # wallpaper-engine-api
  A nodejs wrapper to control your wallpaper engine backgrounds
 
+> [!WARNING]
+> 🚨 **Help Wanted**  
+> I need help fixing this → Issue #9
+
 ## Install
 `npm i wallpaper-engine-api`
 
