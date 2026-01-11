@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      enoent:
+        specifier: ^1.0.0
+        version: 1.0.0
       uuid:
         specifier: ^11.0.2
         version: 11.0.2
@@ -23,6 +26,9 @@ packages:
 
   '@types/node@22.8.7':
     resolution: {integrity: sha512-LidcG+2UeYIWcMuMUpBKOnryBWG/rnmOHQR5apjn8myTQcx3rinFRn7DcIFhMnS0PPFSC6OafdIKEad0lj6U0Q==}
+
+  enoent@1.0.0:
+    resolution: {integrity: sha512-vo95iDpzJylLGymmG5KAsPsjInYZ2XsUY5MC3LeGonX6ycTKlmGmjad6qtIYm+jPH2wnzsonbgF0jQ5Yw1A/zw==}
 
   typescript@5.6.3:
     resolution: {integrity: sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==}
@@ -41,6 +47,8 @@ snapshots:
   '@types/node@22.8.7':
     dependencies:
       undici-types: 6.19.8
+
+  enoent@1.0.0: {}
 
   typescript@5.6.3: {}
 
