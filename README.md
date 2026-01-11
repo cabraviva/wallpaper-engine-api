@@ -3,7 +3,7 @@
 
 > [!WARNING]
 > 🚨 **Help Wanted**  
-> I need help fixing this → Issue #9
+> I need help fixing this → [Issue #9](https://github.com/cabraviva/wallpaper-engine-api/issues/9)
 
 ## Install
 `npm i wallpaper-engine-api`
